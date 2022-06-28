@@ -4,36 +4,61 @@
 
 
 function generatePassword() {
-  console.log('Password Generating...');
-  // Initializing Character Pool, password variable, and defining length  
-  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  var numbers = '0123456789'
-  var symbols = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
+  // Initializing variables
+  var characters = "";
+  var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var lower = "abcdefghijklmnopqrstuvwxyz";
+  var numbers = "0123456789"
+  var special = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
   var pw = '';
-  var length = characters.length;
+
+  function pwConfig() {
+    specialAnswer = window.confirm('Do you want special characters?');
+    numAnswer = window.confirm('Do you want numbers?');
+    lowerAnswer = window.confirm('Do you want lower case letters?');
+    upperAnswer = window.confirm('Do you want upper case letters?');
+  }
+
   pwlength = window.prompt('How many characters should this be?\n This must be at least 8 characters, no more than 128 characters.');
 
-    while (pwlength < 8 || pwlength > 128) {
-      window.alert('Choose a value between 8 and 128')
-      pwlength = window.prompt('How many characters should this be?\n This must be at least 8 characters, no more than 128 characters.');
-    };
+  while (pwlength < 8 || pwlength > 128) {
+    window.alert('Choose a value between 8 and 128')
+    pwlength = window.prompt('How many characters should this be?\n This must be at least 8 characters, no more than 128 characters.');
+  };
 
-    symAnswer = window.confirm('Do you want symbols?');
-    numAnswer = window.confirm('Do you want numbers?');
+  pwConfig()
+  
+  while (specialAnswer == false && numAnswer == false && lowerAnswer == false && upperAnswer == false) {
+    window.alert('You must choose yes to one of the prompts!');
+    pwConfig();
+  }
 
-    if (symAnswer == true) {
-      characters = characters.concat(symbols)
-    };
+  if (specialAnswer == true) {
+    characters = characters.concat(special)
+    console.log(characters)
+  };
 
-    if (numAnswer == true) {
-      characters = characters.concat(numbers)
-    };
+  if (numAnswer == true) {
+    characters = characters.concat(numbers)
+    console.log(characters)
+  };
 
+  if (lowerAnswer == true) {
+    characters = characters.concat(lower)
+    console.log(characters)
+  };
 
-    for (let i = 0; i < pwlength; i++) {
-      pw = pw + characters.charAt(Math.floor(Math.random() * length));
-      
-    };
+  if (upperAnswer == true) {
+    characters = characters.concat(upper)
+    console.log(characters)
+  };
+
+  for (let i = 0; i < pwlength; i++) {
+    // console.log(characters)
+    console.log(pwlength)
+    console.log(pw)
+    pw = pw + characters.charAt(Math.floor(Math.random() * characters.length));
+  };
   return pw;
 }
 
